@@ -74,6 +74,14 @@ Matrix &Matrix::operator=(Matrix &&matrix) noexcept {
     return *this;
 }
 
+Matrix::~Matrix() {
+    if (data) {
+        delete[] data[0];
+        delete[] data;
+        data = nullptr;
+    }
+}
+
 Matrix &Matrix::operator+=(const Matrix &r) {
     if (n != r.n || m != r.m) {
         throw (std::out_of_range("Matrix dimensions must be the same\n"));

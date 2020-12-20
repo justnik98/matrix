@@ -25,6 +25,8 @@ public:
 
     Matrix &operator=(Matrix &&matrix) noexcept;
 
+    virtual ~Matrix();
+
     Matrix &operator+=(const Matrix &r);
 };
 

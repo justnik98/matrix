@@ -92,3 +92,14 @@ Matrix &Matrix::operator+=(const Matrix &r) {
     }
     return *this;
 }
+
+Matrix &Matrix::operator-=(const Matrix &r) {
+    if (n != r.n || m != r.m) {
+        throw (std::out_of_range("Matrix dimensions must be the same\n"));
+    }
+    uint32_t size = n * m;
+    for (int i = 0; i < size; ++i) {
+        data[0][i] -= r.data[0][i];
+    }
+    return *this;
+}

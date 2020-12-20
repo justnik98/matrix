@@ -28,6 +28,8 @@ public:
     virtual ~Matrix();
 
     Matrix &operator+=(const Matrix &r);
+
+    Matrix &operator-=(const Matrix &r);
 };
 
 

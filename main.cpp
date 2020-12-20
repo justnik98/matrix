@@ -1,9 +1,24 @@
 #include <iostream>
+#include "src/Matrix.h"
 
 int main() {
-    int a = 5;
-    int b = 6;
-    a = b+=1;
-    std::cout << a << std::endl;
+    int n = 2;
+    int m = 2;
+    Matrix a(n, m);
+    Matrix b(n, m);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cin >> a[i][j];
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cin >> b[i][j];
+        }
+    }
+    a += b;
+    std::cout << a;
+    a -= b;
+    std::cout << a;
     return 0;
 }

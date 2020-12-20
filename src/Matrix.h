@@ -30,7 +30,12 @@ public:
     Matrix &operator+=(const Matrix &r);
 
     Matrix &operator-=(const Matrix &r);
-};
 
+    Matrix &operator*=(const Matrix &r);
+
+    double *operator[](uint32_t ind);
+
+    friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
+};
 
 #endif //MATRIX_MATRIX_H

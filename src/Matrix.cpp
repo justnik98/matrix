@@ -103,3 +103,24 @@ Matrix &Matrix::operator-=(const Matrix &r) {
     }
     return *this;
 }
+
+Matrix &Matrix::operator*=(const Matrix &r) {
+    return *this;
+}
+
+double *Matrix::operator[](uint32_t ind) {
+    if (ind >= n) {
+        throw (std::out_of_range("Wrong index\n"));
+    }
+    return data[ind];
+}
+
+std::ostream &operator<<(std::ostream &os, const Matrix &matrix) {
+    for (int i = 0; i < matrix.n; ++i) {
+        for (int j = 0; j < matrix.m; ++j) {
+            os << matrix.data[i][j] << ' ';
+        }
+        os << std::endl;
+    }
+    return os;
+}

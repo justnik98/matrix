@@ -44,9 +44,32 @@ Matrix::Matrix(Matrix &&matrix) noexcept {
 }
 
 Matrix &Matrix::operator=(const Matrix &matrix) {
-    return <#initializer#>;
+    if (this == &matrix) {
+        return *this;
+    }
+    delete[] data[0];
+    delete[] data;
+    n = matrix.n;
+    m = matrix.m;
+    uint32_t size = n * m;
+    data = new double *[n];
+    data[0] = new double[size];
+    for (int i = 1; i < n; ++i) {
+        data[i] = &data[0][i * m];
+    }
+    for (int i = 0; i < size; i++) {
+        data[i] = matrix.data[i];
+    }
+    return *this;
 }
 
 Matrix &Matrix::operator=(Matrix &&matrix) noexcept {
-    return <#initializer#>;
+    if (this == &matrix) {
+        return *this;
+    }
+    n = matrix.n;
+    m = matrix.m;
+    data = matrix.data;
+    matrix.data = nullptr;
+    return *this;
 }

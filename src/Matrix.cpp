@@ -31,7 +31,7 @@ Matrix::Matrix(const Matrix &matrix) {
     for (int i = 1; i < n; ++i) {
         data[i] = &data[0][i * m];
     }
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; ++i) {
         data[i] = matrix.data[i];
     }
 }
@@ -57,8 +57,8 @@ Matrix &Matrix::operator=(const Matrix &matrix) {
     for (int i = 1; i < n; ++i) {
         data[i] = &data[0][i * m];
     }
-    for (int i = 0; i < size; i++) {
-        data[i] = matrix.data[i];
+    for (int i = 0; i < size; ++i) {
+        data[0][i] = matrix.data[0][i];
     }
     return *this;
 }
@@ -71,5 +71,16 @@ Matrix &Matrix::operator=(Matrix &&matrix) noexcept {
     m = matrix.m;
     data = matrix.data;
     matrix.data = nullptr;
+    return *this;
+}
+
+Matrix &Matrix::operator+=(const Matrix &r) {
+    if (n != r.n || m != r.m) {
+        throw (std::out_of_range("Matrix dimensions must be the same\n"));
+    }
+    uint32_t size = n * m;
+    for (int i = 0; i < size; ++i) {
+        data[0][i] += r.data[0][i];
+    }
     return *this;
 }

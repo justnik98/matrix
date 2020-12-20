@@ -25,6 +25,7 @@ public:
 
     Matrix &operator=(Matrix &&matrix) noexcept;
 
+    Matrix &operator+=(const Matrix &r);
 };
 
 

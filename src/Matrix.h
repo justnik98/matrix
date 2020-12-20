@@ -9,21 +9,21 @@
 
 class Matrix {
 private:
-    double ** data;
+    double **data;
     uint32_t n;
     uint32_t m;
 public:
     explicit Matrix(uint32_t n);
 
-    Matrix(uint32_t n, uint32_t m);
+    Matrix(uint32_t n, uint32_t matrix);
 
-    Matrix(const Matrix &m);
+    Matrix(const Matrix &matrix);
 
-    Matrix(Matrix &&m) noexcept ;
+    Matrix(Matrix &&matrix) noexcept;
 
-    Matrix &operator=(const Matrix &m);
+    Matrix &operator=(const Matrix &matrix);
 
-    Matrix &operator=(Matrix &&m) noexcept;
+    Matrix &operator=(Matrix &&matrix) noexcept;
 
 };
 

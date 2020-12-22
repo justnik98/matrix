@@ -36,6 +36,12 @@ public:
     double *operator[](uint32_t ind);
 
     friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
+
+    friend Matrix operator+(Matrix l, const Matrix &r);
+
+    friend Matrix operator-(Matrix l, const Matrix &r);
+
+    friend Matrix operator*(Matrix l, const Matrix &r);
 };
 
 #endif //MATRIX_MATRIX_H

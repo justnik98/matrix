@@ -20,5 +20,8 @@ int main() {
     std::cout << a;
     a -= b;
     std::cout << a;
+    Matrix c(n);
+    c = a + b;
+    std::cout << c;
     return 0;
 }

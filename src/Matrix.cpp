@@ -97,6 +97,16 @@ Matrix &Matrix::operator-=(const Matrix &r) {
 }
 
 Matrix &Matrix::operator*=(const Matrix &r) {
+    Matrix c(n, r.m);
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < r.n; ++j) {
+            c.data[0][i * n + j] = 0;
+            for (int k = 0; k < m; ++k) {
+                c.data[0][i * n + j] += data[0][i * m + k] * r.data[0][k * n + j];
+            }
+        }
+    }
+    *this = c;
     return *this;
 }
 

@@ -142,7 +142,6 @@ Matrix operator*(Matrix l, const Matrix &r) {
     return l;
 }
 
-
 Matrix Matrix::identity(uint32_t n) noexcept {
     Matrix res(n);
     for (int i = 0; i < n; ++i) {

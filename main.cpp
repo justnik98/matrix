@@ -24,5 +24,9 @@ int main() {
     Matrix c(n);
     c = a + b;
     std::cout << c;
+    c = a * b;
+    std::cout << c;
+    c = d * d;
+    std::cout << c;
     return 0;
 }

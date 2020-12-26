@@ -42,6 +42,9 @@ public:
     friend Matrix operator-(Matrix l, const Matrix &r);
 
     friend Matrix operator*(Matrix l, const Matrix &r);
+
+    static Matrix identity(uint32_t n) noexcept;
 };
+
 
 #endif //MATRIX_MATRIX_H

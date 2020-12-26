@@ -2,26 +2,32 @@
 #include "src/Matrix.h"
 
 int main() {
-    int n = 2;
-    int m = 2;
+    using std::cout, std::cin, std::endl;
+    uint32_t n = 2;
+    uint32_t m = 2;
     Matrix a(n, m);
     Matrix b(n, m);
+    Matrix d = Matrix::identity(n);
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-            std::cin >> a[i][j];
+            cin >> a[i][j];
         }
     }
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-            std::cin >> b[i][j];
+            cin >> b[i][j];
         }
     }
     a += b;
-    std::cout << a;
+    cout << a << endl;
     a -= b;
-    std::cout << a;
+    cout << a << endl;
     Matrix c(n);
     c = a + b;
-    std::cout << c;
+    cout << c << endl;
+    c = a * b;
+    cout << c << endl;
+    c = d * d;
+    cout << c << endl;
     return 0;
 }

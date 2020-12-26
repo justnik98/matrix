@@ -128,13 +128,26 @@ std::ostream &operator<<(std::ostream &os, const Matrix &matrix) {
 }
 
 Matrix operator+(Matrix l, const Matrix &r) {
-    return l += r;
+    l += r;
+    return l;
 }
 
 Matrix operator-(Matrix l, const Matrix &r) {
-    return l -= r;
+    l -= r;
+    return l;
 }
 
 Matrix operator*(Matrix l, const Matrix &r) {
-    return l *= r;
+    l *= r;
+    return l;
+}
+
+Matrix Matrix::identity(uint32_t n) noexcept {
+    Matrix res(n);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            res[i][j] = i == j ? 1 : 0;
+        }
+    }
+    return res;
 }

@@ -3,4 +3,12 @@ project(matrix)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(matrix main.cpp src/Matrix.cpp src/Matrix.h)
+set(SOURCE_FILES main.cpp)
+add_executable(matrix ${SOURCE_FILES})
+
+include_directories(src)
+add_subdirectory(src)
+
+target_link_libraries(matrix src)
+
+add_subdirectory(Google_tests)

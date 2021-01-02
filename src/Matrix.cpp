@@ -151,3 +151,96 @@ Matrix Matrix::identity(uint32_t n) noexcept {
     }
     return res;
 }
+
+Matrix Matrix::inverse() const {
+    Matrix ext = Matrix::identity(n);
+    Matrix(*this).inverseExt(ext);
+    return ext;
+}
+
+void Matrix::inverseExt(Matrix &ext) {
+    if (gauss(&ext) != n) {
+        throw std::invalid_argument("Cannot inverse a singular matrix");
+    }
+    for (unsigned i = n - 1; i != unsigned(-1); --i) {
+        double coeff = 1.0 / data[i][i];
+        for (unsigned j = 0; j < n; ++j) {
+            (*this)[i][j] *= coeff;
+        }
+        for (unsigned j = 0; j < ext.n; ++j) {
+            ext[i][j] *= coeff;
+        }
+        for (unsigned j = i + 1; j < n; j++) {
+            if (data[i][j] == 0.0)
+                continue;
+            for (unsigned q = 0; q < ext.n; q++) {
+                ext[i][q] -= ext[j][q] * (*this)[i][j];
+            }
+            (*this)[i][j] = double();
+        }
+    }
+}
+
+Matrix Matrix::operator^(uint32_t pow) const {
+    Matrix res = identity(m);
+    for (uint32_t i = 0; i < pow; ++i) {
+        res *= *this;
+    }
+    return res;
+}
+
+uint32_t Matrix::gauss(Matrix *ext) noexcept {
+    unsigned row = 0;
+    for (unsigned col = 0; col < n; ++col) {
+        for (unsigned i = row; i < m; ++i) {
+            if ((*this)[i][col] != 0.0) {
+                if (i != row) {
+                    for (unsigned j = 0; j < n; ++j) {
+                        std::swap((*this)[i][j], (*this)[row][j]);
+                        (*this)[i][j] = -(*this)[i][j];
+                    }
+                    if (ext) {
+                        for (unsigned j = 0; j < ext->n; ++j) {
+                            std::swap((*ext)[i][j], (*ext)[row][j]);
+                            (*ext)[i][j] = -(*ext)[i][j];
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        if ((*this)[row][col] == 0.0) {
+            continue;
+        }
+        for (unsigned i = row + 1; i < m; ++i) {
+            double coeff = (*this)[i][col] / (*this)[row][col];
+            for (unsigned j = 0; j < n; ++j) {
+                (*this)[i][j] -= (*this)[row][j] * coeff;
+            }
+            if (ext) {
+                for (unsigned j = 0; j < ext->n; ++j)
+                    (*ext)[i][j] -= (*ext)[row][j] * coeff;
+            }
+        }
+        if (++row == m)
+            return row;
+    }
+    return row;
+}
+
+double Matrix::det() const {
+    if (n != m)
+        throw std::invalid_argument("Trying to calculate determinant of a non-square matrix");
+    Matrix tmp(*this);
+    Matrix ext = identity(n);
+    if (tmp.gauss(&ext) != n)
+        return double();
+    double ans = 1.0;
+    for (unsigned i = 0; i < n * n; i += n + 1) {
+        ans *= tmp.data[0][i];
+    }
+    return ans;
+}
+
+
+

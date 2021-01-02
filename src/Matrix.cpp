@@ -152,7 +152,7 @@ Matrix Matrix::identity(uint32_t n) noexcept {
     return res;
 }
 
-Matrix Matrix::inverse() const noexcept {
+Matrix Matrix::inverse() const {
     Matrix ext = Matrix::identity(n);
     Matrix(*this).inverseExt(ext);
     return ext;
@@ -189,11 +189,11 @@ Matrix Matrix::operator^(uint32_t pow) const {
     return res;
 }
 
-uint32_t Matrix::gauss(Matrix *ext) {
+uint32_t Matrix::gauss(Matrix *ext) noexcept {
     unsigned row = 0;
     for (unsigned col = 0; col < n; ++col) {
         for (unsigned i = row; i < m; ++i) {
-            if ((*this)[i][col]) {
+            if ((*this)[i][col] != 0.0) {
                 if (i != row) {
                     for (unsigned j = 0; j < n; ++j) {
                         std::swap((*this)[i][j], (*this)[row][j]);
@@ -209,7 +209,7 @@ uint32_t Matrix::gauss(Matrix *ext) {
                 break;
             }
         }
-        if (!(*this)[row][col]) {
+        if ((*this)[row][col] == 0.0) {
             continue;
         }
         for (unsigned i = row + 1; i < m; ++i) {
@@ -226,6 +226,20 @@ uint32_t Matrix::gauss(Matrix *ext) {
             return row;
     }
     return row;
+}
+
+double Matrix::det() const {
+    if (n != m)
+        throw std::invalid_argument("Trying to calculate determinant of a non-square matrix");
+    Matrix tmp(*this);
+    Matrix ext = identity(n);
+    if (tmp.gauss(&ext) != n)
+        return double();
+    double ans = 1.0;
+    for (unsigned i = 0; i < n * n; i += n + 1) {
+        ans *= tmp.data[0][i];
+    }
+    return ans;
 }
 
 

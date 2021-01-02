@@ -151,3 +151,32 @@ Matrix Matrix::identity(uint32_t n) noexcept {
     }
     return res;
 }
+
+Matrix Matrix::inverse() const noexcept {
+    Matrix ext = Matrix::identity(n);
+    Matrix(*this).inverseExt(ext);
+    return ext;
+}
+
+void Matrix::inverseExt(Matrix ext) {
+    for (unsigned i = n - 1; i != unsigned(-1); --i) {
+        double coeff = 1.0 / data[i][i];
+        for (unsigned j = 0; j < n; ++j) {
+            (*this)[i][j] *= coeff;
+        }
+        for (unsigned j = 0; j < ext.n; ++j) {
+            ext[i][j] *= coeff;
+        }
+        for (unsigned j = i + 1; j < n; j++) {
+            if (data[i][j] == 0.0)
+                continue;
+            for (unsigned q = 0; q < ext.n; q++) {
+                ext[i][q] -= ext[j][q] * (*this)[i][j];
+            }
+            (*this)[i][j] = double();
+        }
+    }
+}
+
+
+

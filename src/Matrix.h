@@ -12,6 +12,9 @@ private:
     double **data;
     uint32_t n;
     uint32_t m;
+
+    void inverseExt(Matrix ext);
+
 public:
     explicit Matrix(uint32_t n);
 
@@ -44,6 +47,8 @@ public:
     friend Matrix operator*(Matrix l, const Matrix &r);
 
     static Matrix identity(uint32_t n) noexcept;
+
+    Matrix inverse() const noexcept;
 };
 
 

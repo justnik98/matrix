@@ -29,5 +29,7 @@ int main() {
     cout << c << endl;
     c = d * d;
     cout << c << endl;
+    c = d.inverse();
+    cout << c << endl;
     return 0;
 }

@@ -13,7 +13,9 @@ private:
     uint32_t n;
     uint32_t m;
 
-    void inverseExt(Matrix ext);
+    void inverseExt(Matrix &ext);
+
+    uint32_t gauss(Matrix *ext);
 
 public:
     explicit Matrix(uint32_t n);
@@ -35,6 +37,8 @@ public:
     Matrix &operator-=(const Matrix &r);
 
     Matrix &operator*=(const Matrix &r);
+
+    Matrix operator^(uint32_t pow) const;
 
     double *operator[](uint32_t ind);
 

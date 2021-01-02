@@ -29,7 +29,9 @@ int main() {
     cout << c << endl;
     c = d * d;
     cout << c << endl;
-    c = d.inverse();
+    c = a.inverse();
+    cout << c << endl;
+    c = a ^ 1000;
     cout << c << endl;
     return 0;
 }

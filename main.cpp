@@ -4,7 +4,7 @@
 int main() {
     using std::cout, std::cin, std::endl;
     uint32_t n = 2;
-    uint32_t m = 1;
+    uint32_t m = 2;
     Matrix a(n, m);
     Matrix b(n, m);
     Matrix d = Matrix::identity(n);
@@ -34,5 +34,6 @@ int main() {
     c = a ^ 1000;
     cout << c << endl;
     cout << a.det() << endl;
+    cout << a.transposed() << endl;
     return 0;
 }

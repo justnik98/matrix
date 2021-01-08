@@ -55,6 +55,8 @@ public:
     [[nodiscard]] Matrix inverse() const;
 
     [[nodiscard]] double det() const;
+
+    Matrix transposed() const noexcept;
 };
 
 

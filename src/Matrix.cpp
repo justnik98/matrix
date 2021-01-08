@@ -242,5 +242,15 @@ double Matrix::det() const {
     return ans;
 }
 
+Matrix Matrix::transposed() const noexcept {
+    Matrix res(m, n);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            res[j][i] = data[i][j];
+        }
+    }
+    return res;
+}
+
 
 
